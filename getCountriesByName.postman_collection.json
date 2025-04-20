@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "0fb2a2c4-29eb-4eee-8493-c15a65b8d91b",
+		"name": "rest-countries-api-tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11349058",
+		"_collection_link": "https://www.postman.com/speeding-trinity-879733/workspace/api-automation-testing/collection/11349058-0fb2a2c4-29eb-4eee-8493-c15a65b8d91b?action=share&source=collection_link&creator=11349058"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();",
+							"let countryName = jsonData[0].name.common;",
+							"",
+							"pm.test(\"Verify response status is 200\", () => {",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Verify response time is less than 500ms\", () => {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500)",
+							"      // Log the response time in the console",
+							"    console.log(\"Response time: \" + pm.response.responseTime + \"ms\");",
+							"});",
+							"",
+							"pm.test(\"Verify country name is Nigeria\", () => {",
+							"    pm.expect(countryName).to.eql(\"Nigeria\");",
+							"})",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://restcountries.com/v3.1/name/{{name}}",
+					"protocol": "https",
+					"host": [
+						"restcountries",
+						"com"
+					],
+					"path": [
+						"v3.1",
+						"name",
+						"{{name}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
